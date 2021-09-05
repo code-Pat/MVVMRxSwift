@@ -15,11 +15,23 @@ class RootViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: RootViewModel
     
-    private let articles = BehaviorRelay<[Article]>(value: [])
-    var articlesObserver: Observable<[Article]> {
-        return articles.asObservable()
+    private lazy var collectionView: UICollectionView = {
+        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout())
+        
+        cv.delegate = self
+        cv.dataSource = self
+        
+        cv.backgroundColor = .systemBackground
+        
+        return cv
+    }()
+    
+    private let articleViewModel = BehaviorRelay<[ArticleViewModel]>(value: [])
+    var articleViewModelObserver: Observable<[ArticleViewModel]> {
+        return articleViewModel.asObservable()
     }
     
+ 
     // Mark: Lifecycles
     init(viewModel: RootViewModel) {
         self.viewModel = viewModel
@@ -35,6 +47,7 @@ class RootViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         configureUI()
+        configureCollectionView()
         fetchArticles()
         subscribe()
     }
@@ -42,20 +55,52 @@ class RootViewController: UIViewController {
     // Mark: Configures
     func configureUI() {
         view.backgroundColor = .systemBackground
+        
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
      
+    func configureCollectionView() {
+        self.collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
+    }
     // Mark: Helpers
     
     func fetchArticles() {
-        self.viewModel.fetchArticles().subscribe(onNext: {articles in
-            self.articles.accept(articles)
+        viewModel.fetchArticles().subscribe(onNext: { articleViewModels in
+            self.articleViewModel.accept(articleViewModels)
         }).disposed(by: disposeBag)
     }
     
     func subscribe() {
-        self.articlesObserver.subscribe(onNext: { articles in
-            //
+        self.articleViewModelObserver.subscribe(onNext: { articles in
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }).disposed(by: disposeBag)
     }
 
+}
+
+
+extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.articleViewModel.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ArticleCell
+        
+        let articleViewModel = self.articleViewModel.value[indexPath.row]
+        cell.viewModel.onNext(articleViewModel)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 120)
+    }
 }
