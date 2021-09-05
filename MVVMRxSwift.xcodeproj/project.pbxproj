@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,8 @@
 		6B01276826E4DF94008F2319 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B01276626E4DF94008F2319 /* LaunchScreen.storyboard */; };
 		6B01277126E4E2C2008F2319 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01277026E4E2C2008F2319 /* RootViewController.swift */; };
 		6B01277326E4E31A008F2319 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01277226E4E31A008F2319 /* Coordinator.swift */; };
+		6B01277626E4E9AC008F2319 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01277526E4E9AC008F2319 /* Article.swift */; };
+		6B01277926E4EA6B008F2319 /* ArticleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01277826E4EA6B008F2319 /* ArticleService.swift */; };
 		C4F33296640C4BF7A0D9AA8A /* Pods_MVVMRxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6338E9DDE31D5AC8A592E7B7 /* Pods_MVVMRxSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		6B01276926E4DF94008F2319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B01277026E4E2C2008F2319 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		6B01277226E4E31A008F2319 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		6B01277526E4E9AC008F2319 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		6B01277826E4EA6B008F2319 /* ArticleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleService.swift; sourceTree = "<group>"; };
 		72F4FD0643C63919B5A39A8F /* Pods-MVVMRxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMRxSwift.debug.xcconfig"; path = "Target Support Files/Pods-MVVMRxSwift/Pods-MVVMRxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		F64DB14E82450535702C3C9B /* Pods-MVVMRxSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMRxSwift.release.xcconfig"; path = "Target Support Files/Pods-MVVMRxSwift/Pods-MVVMRxSwift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +52,6 @@
 				72F4FD0643C63919B5A39A8F /* Pods-MVVMRxSwift.debug.xcconfig */,
 				F64DB14E82450535702C3C9B /* Pods-MVVMRxSwift.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,6 +84,8 @@
 		6B01275A26E4DF91008F2319 /* MVVMRxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				6B01277726E4EA5B008F2319 /* Services */,
+				6B01277426E4E99D008F2319 /* Models */,
 				6B01276F26E4E2AA008F2319 /* Controllers */,
 				6B01275B26E4DF91008F2319 /* AppDelegate.swift */,
 				6B01275D26E4DF91008F2319 /* SceneDelegate.swift */,
@@ -98,6 +103,22 @@
 				6B01277026E4E2C2008F2319 /* RootViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		6B01277426E4E99D008F2319 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6B01277526E4E9AC008F2319 /* Article.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6B01277726E4EA5B008F2319 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6B01277826E4EA6B008F2319 /* ArticleService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,8 +236,10 @@
 			files = (
 				6B01277326E4E31A008F2319 /* Coordinator.swift in Sources */,
 				6B01275C26E4DF91008F2319 /* AppDelegate.swift in Sources */,
+				6B01277926E4EA6B008F2319 /* ArticleService.swift in Sources */,
 				6B01275E26E4DF91008F2319 /* SceneDelegate.swift in Sources */,
 				6B01277126E4E2C2008F2319 /* RootViewController.swift in Sources */,
+				6B01277626E4E9AC008F2319 /* Article.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
